@@ -34,9 +34,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build Docker image
-        run: docker build -t ghcr.io/isolated0/ai_inventory:latest -f Containerfile .
+        run: docker build -t ghcr.io/isolatedlun/ai_inventory:latest -f Containerfile .
       - name: Push Docker image
-        run: docker push ghcr.io/isolated0/ai_inventory:latest
+        run: docker push ghcr.io/isolatedlun/ai_inventory:latest
 
   deploy:
     needs: test
@@ -57,7 +57,7 @@ jobs:
 
       - name: Pull image
         shell: bash
-        run: podman pull --platform linux/amd64 ghcr.io/isolated0/ai_inventory:latest
+        run: podman pull --platform linux/amd64 ghcr.io/isolatedlun/ai_inventory:latest
       
       - name: Deploy
         shell: bash
@@ -73,4 +73,4 @@ jobs:
             --restart unless-stopped \
             -p 127.0.0.1:8000:8000 \
             -e GEMINI_API_KEY \
-            ghcr.io/isolated0/ai_inventory:latest
+            ghcr.io/isolatedlun/ai_inventory:latest
